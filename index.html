@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mini CRM</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Mini CRM</h1>
+      <p>Track leads, status, and follow-ups in one place.</p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2>Add Contact</h2>
+        <form id="contact-form">
+          <label>
+            Name
+            <input type="text" id="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="email" required />
+          </label>
+          <label>
+            Company
+            <input type="text" id="company" required />
+          </label>
+          <label>
+            Status
+            <select id="status" required>
+              <option>Lead</option>
+              <option>Qualified</option>
+              <option>Proposal</option>
+              <option>Negotiation</option>
+              <option>Won</option>
+              <option>Lost</option>
+            </select>
+          </label>
+          <label>
+            Next Follow-up
+            <input type="date" id="followUp" required />
+          </label>
+          <button type="submit">Add Contact</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h2>Contacts</h2>
+          <input type="search" id="search" placeholder="Search name, email, company..." />
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Company</th>
+              <th>Status</th>
+              <th>Follow-up</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="contact-list"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <template id="contact-row-template">
+      <tr>
+        <td class="name"></td>
+        <td class="email"></td>
+        <td class="company"></td>
+        <td class="status"></td>
+        <td class="followUp"></td>
+        <td>
+          <button class="btn-small status-next" type="button">Advance</button>
+          <button class="btn-small danger delete" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
