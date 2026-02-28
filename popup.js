@@ -150,9 +150,9 @@ function makeReplyCard(reply) {
     handleMarkSeen(reply.accountEmail, reply.threadId);
   });
 
-  // Click card → open thread in Gmail
+  // Click card → open thread in the correct Gmail account
   card.addEventListener('click', () => {
-    const url = `https://mail.google.com/mail/u/0/#inbox/${reply.threadId}`;
+    const url = `https://mail.google.com/mail/u/${encodeURIComponent(reply.accountEmail)}/#inbox/${reply.threadId}`;
     chrome.tabs.create({ url });
   });
 
@@ -277,7 +277,8 @@ function getFilteredUnseen() {
   const items = [];
   for (const [email, accountReplies] of Object.entries(allReplies)) {
     if (activeFilter !== 'all' && activeFilter !== email) continue;
-    for (const reply of Object.values(accountReplies)) {
+    for (const reply of Object.values(accountReplies || {})) {
+      if (!reply || !reply.timestamp) continue;
       if (!reply.seen) items.push({ ...reply, accountEmail: email });
     }
   }

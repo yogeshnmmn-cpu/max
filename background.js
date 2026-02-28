@@ -117,7 +117,7 @@ async function pollAllAccounts() {
     accounts.map(async (acc) => {
       try {
         const count = await pollAccount(acc.id);
-        totalNew += count;
+        totalNew += (count || 0);
       } catch (err) {
         console.warn(`[ReplyHub] Poll failed for ${acc.id}:`, err.message);
       }
@@ -129,7 +129,6 @@ async function pollAllAccounts() {
 }
 
 async function pollAccount(email) {
-  const { syncAccount } = await import('./gmail.js');
   return syncAccount(email);
 }
 

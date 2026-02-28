@@ -16,12 +16,8 @@
  *  6. Reload the extension in chrome://extensions.
  */
 
-import { getToken, saveToken, clearToken, saveAccount, removeAccount } from './storage.js';
-
-// ── PASTE YOUR CREDENTIALS HERE ─────────────────────────────────────────────
-const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
-const CLIENT_SECRET = 'YOUR_CLIENT_SECRET';
-// ─────────────────────────────────────────────────────────────────────────────
+import { getToken, saveToken, clearToken, saveAccount, removeAccount, getAccounts } from './storage.js';
+import { CLIENT_ID, CLIENT_SECRET } from './config.js';
 
 const SCOPES = [
   'https://www.googleapis.com/auth/gmail.readonly',
@@ -47,6 +43,8 @@ export async function connectPrimaryAccount() {
       }
       try {
         const userInfo = await fetchUserInfo(token);
+        const existing = (await getAccounts()).find(a => a.id === userInfo.email);
+        if (existing) return resolve(userInfo.email);
         await saveAccount({
           id: userInfo.email,
           displayName: userInfo.name || userInfo.email,
@@ -82,6 +80,9 @@ export async function connectSecondaryAccount() {
   const code = extractCodeFromUrl(responseUrl);
   const tokenData = await exchangeCodeForTokens(code, redirectUri);
   const userInfo = await fetchUserInfo(tokenData.access_token);
+
+  const existing = (await getAccounts()).find(a => a.id === userInfo.email);
+  if (existing) return userInfo.email;
 
   await saveAccount({
     id: userInfo.email,
