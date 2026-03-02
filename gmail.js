@@ -53,11 +53,13 @@ export async function syncAccount(email) {
 
 async function fullScan(email, token) {
   const threads = await listThreads(token, { q: 'in:inbox is:unread', maxResults: 50 });
-  if (!threads.length) return 0;
 
-  // Grab the profile's current historyId to anchor future incremental syncs
+  // Always anchor the watermark so future polls use incremental sync,
+  // even when the inbox is empty.
   const profile = await gmailGet(token, '/profile');
   await updateSyncState(email, { lastHistoryId: profile.historyId });
+
+  if (!threads.length) return 0;
 
   let newCount = 0;
   for (const { id: threadId } of threads) {
