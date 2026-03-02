@@ -33,6 +33,7 @@
   ],
 
   "host_permissions": [
+    "https://gmail.googleapis.com/*",
     "https://www.googleapis.com/*",
     "https://accounts.google.com/*",
     "https://oauth2.googleapis.com/*"
