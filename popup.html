@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reply Hub</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <span class="logo">✉️</span>
+      <h1 class="title">Reply Hub</h1>
+    </div>
+    <div class="header-actions">
+      <button id="btn-refresh" class="icon-btn" title="Refresh now">⟳</button>
+      <button id="btn-add-account" class="btn btn-primary" title="Connect a Gmail account">+ Account</button>
+    </div>
+  </header>
+
+  <!-- Account Tabs -->
+  <nav id="account-tabs" class="account-tabs" role="tablist" aria-label="Accounts">
+    <!-- Dynamically populated -->
+  </nav>
+
+  <!-- Mark All Seen Bar -->
+  <div id="mark-all-bar" class="mark-all-bar hidden">
+    <span id="unseen-count-label" class="unseen-label"></span>
+    <button id="btn-mark-all" class="btn btn-ghost btn-sm">Mark All Seen</button>
+  </div>
+
+  <!-- Reply List -->
+  <main id="reply-list" class="reply-list">
+    <!-- Dynamically populated -->
+  </main>
+
+  <!-- Empty State -->
+  <div id="empty-state" class="empty-state hidden">
+    <div class="empty-icon">📭</div>
+    <p class="empty-title">All caught up!</p>
+    <p class="empty-sub">No new replies right now.</p>
+  </div>
+
+  <!-- No Accounts State -->
+  <div id="no-accounts-state" class="empty-state hidden">
+    <div class="empty-icon">👋</div>
+    <p class="empty-title">Welcome to Reply Hub</p>
+    <p class="empty-sub">Connect a Gmail account to get started.</p>
+    <button id="btn-add-first" class="btn btn-primary btn-lg">+ Connect Gmail</button>
+  </div>
+
+  <!-- Loading -->
+  <div id="loading-state" class="loading-state hidden">
+    <div class="spinner"></div>
+    <span>Loading replies…</span>
+  </div>
+
+  <!-- Status bar -->
+  <footer class="status-bar">
+    <span id="status-text" class="status-text">Ready</span>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
